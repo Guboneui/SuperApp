@@ -8,7 +8,7 @@
 import ProjectDescription
 import ProjectDescriptionHelpers
 
-let project = Project.inversedLibrary(
+let project = Project.invertedDualTargetProject(
     name: "Core",
     platform: .iOS,
     iOSTargetVersion: "15.0"

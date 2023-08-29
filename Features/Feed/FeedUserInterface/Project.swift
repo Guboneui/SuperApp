@@ -9,7 +9,7 @@ import ProjectDescription
 import ProjectDescriptionHelpers
 
 let project = Project.invertedDualTargetProject(
-  name: "ProfileUserInterface",
+  name: "FeedUserInterface",
   platform: .iOS,
   iOSTargetVersion: "15.0",
   interfaceDependencies: [],

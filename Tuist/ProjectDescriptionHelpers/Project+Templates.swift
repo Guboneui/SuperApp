@@ -79,7 +79,8 @@ extension Project {
     )
   }
   
-  public static func inversedLibrary(
+  
+  public static func invertedDualTargetProject(
     name: String,
     platform: Platform,
     iOSTargetVersion: String,
@@ -87,7 +88,7 @@ extension Project {
     implementDependencies: [TargetDependency] = []
   ) -> Project {
     
-    let interfaceTarget = makeInterfaceStaticLibraryTarget(
+    let interfaceTarget = makeInterfaceDynamicFrameworkTarget(
       name: name,
       platform: platform,
       iOSTargetVersion: iOSTargetVersion,
@@ -111,38 +112,6 @@ extension Project {
 
 extension Project {
   
-  static func makeNestedFrameworkTargets(
-    name: String,
-    platform: Platform,
-    iOSTargetVersion: String,
-    dependencies: [TargetDependency] = []
-  ) -> [Target] {
-    let interfaceSources = Target(
-      name: name,
-      platform: platform,
-      product: .staticLibrary,
-      bundleId: "\(organizationName).\(name)",
-      deploymentTarget: .iOS(targetVersion: iOSTargetVersion, devices: [.iphone]),
-      infoPlist: .default,
-      sources: ["Sources/Interface/**"],
-      dependencies: dependencies
-    )
-    
-    let ImplementSources = Target(
-      name: name + "Impl",
-      platform: platform,
-      product: .staticLibrary,
-      bundleId: "\(organizationName).\(name)",
-      deploymentTarget: .iOS(targetVersion: iOSTargetVersion, devices: [.iphone]),
-      infoPlist: .default,
-      sources: ["Sources/Implement/**"],
-      dependencies: dependencies
-    )
-    
-    return [interfaceSources, ImplementSources]
-  }
-  
-  
   static func makeImplementStaticLibraryTarget(
     name: String,
     platform: Platform,
@@ -163,7 +132,7 @@ extension Project {
     return target
   }
   
-  static func makeInterfaceStaticLibraryTarget(
+  static func makeInterfaceDynamicFrameworkTarget(
     name: String,
     platform: Platform,
     iOSTargetVersion: String,

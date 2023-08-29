@@ -9,9 +9,9 @@ import ProjectDescription
 import ProjectDescriptionHelpers
 
 let project = Project.invertedDualTargetProject(
-  name: "ProfileUserInterface",
-  platform: .iOS,
-  iOSTargetVersion: "15.0",
-  interfaceDependencies: [],
-  implementDependencies: []
+    name: "ShopData",
+    platform: .iOS,
+    iOSTargetVersion: "15.0",
+    interfaceDependencies: [],
+    implementDependencies: []
 )

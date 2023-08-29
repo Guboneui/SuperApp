@@ -2,6 +2,6 @@ import ProjectDescription
 
 let config = Config(
     plugins: [
-        .local(path: .relativeToManifest("../../Plugins/SuperApp")),
+        .local(path: .relativeToManifest("../../Plugins/UtilityPlugin")),
     ]
 )

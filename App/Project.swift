@@ -7,6 +7,7 @@
 
 import ProjectDescription
 import ProjectDescriptionHelpers
+import UtilityPlugin
 
 let setting: Settings = .settings(
   base: [
@@ -16,26 +17,36 @@ let setting: Settings = .settings(
   defaultSettings: .recommended
 )
 
+let moduleDependency: [TargetDependency] = [
+  .Feature.Home.UserInterface.Interface,
+  .Feature.Home.UserInterface.Implement,
+  
+  .Feature.Feed.UserInterface.Interface,
+  .Feature.Feed.UserInterface.Implement,
+  
+  .Feature.Shop.UserInterface.Interface,
+  .Feature.Shop.UserInterface.Implement,
+  
+  .Feature.Profile.UserInterface.Interface,
+  .Feature.Profile.UserInterface.Implement
+]
+
+let target =  Target(
+  name: "App",
+  platform: .iOS,
+  product: .app,
+  bundleId: "com.boni.app",
+  infoPlist: .extendingDefault(with: [
+    "CFBundleDevelopmentRegion": "ko_KR",
+    "UILaunchStoryboardName": "LaunchScreen"
+  ]),
+  sources: ["Sources/**"],
+  resources: ["Resources/**"],
+  dependencies: moduleDependency + TargetDependency.ThirdParty.main,
+  settings: setting
+)
 
 let project = Project(
   name: "App",
-  targets: [
-    Target(
-      name: "App",
-      platform: .iOS,
-      product: .app,
-      bundleId: "com.boni.app",
-      infoPlist: .extendingDefault(with: [
-        "UILaunchStoryboardName": "LaunchScreen"
-      ]),
-      sources: ["Sources/**"],
-      dependencies: [
-//        .project(target: "DataImpl", path: "../Data"),
-//        .project(target: "Data", path: "../Data"),
-//        .project(target: "Finance", path: "../Features/Finance"),
-        .project(target: "ResourceKit", path: "../ResourceKit")
-      ],
-      settings: setting
-    )
-  ]
+  targets: [target]
 )

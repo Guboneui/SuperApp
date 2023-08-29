@@ -1,5 +1,5 @@
 //
-//  FeedInterface.swift
+//  FeedViewModel.swift
 //  FeedUserInterface
 //
 //  Created by 구본의 on 2023/08/30.
@@ -7,3 +7,7 @@
 //
 
 import Foundation
+
+public protocol FeedViewModel {
+  func printFeedData()
+}

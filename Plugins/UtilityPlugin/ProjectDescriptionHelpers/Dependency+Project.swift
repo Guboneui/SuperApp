@@ -8,20 +8,14 @@ extension TargetDependency {
     }
     
     public struct Feed {
-      public struct Data {}
-      public struct Domain {}
       public struct UserInterface {}
     }
     
     public struct Profile {
-      public struct Data {}
-      public struct Domain {}
       public struct UserInterface {}
     }
     
     public struct Shop {
-      public struct Data {}
-      public struct Domain {}
       public struct UserInterface {}
     }
     
@@ -31,6 +25,12 @@ extension TargetDependency {
   public struct Core {}
   public struct ResourceKit {}
   public struct ThirdParty {}
+  
+  public struct Domain {
+    public struct Entity {}
+    public struct UseCases {}
+    public struct Repositories {}
+  }
 }
 
 public extension TargetDependency.Core {
@@ -61,6 +61,47 @@ public extension TargetDependency.ResourceKit {
   
   static let Implement = project(name: "ResourceKit")
 }
+
+public extension TargetDependency.Domain.Entity {
+  static let folderName = "Entity"
+  static func project(name: String) -> TargetDependency {
+    return .project(
+      target: "\(name)",
+      path: .relativeToRoot("Domain/\(folderName)")
+    )
+  }
+  
+  static let Implement = project(name: "Entity")
+}
+
+public extension TargetDependency.Domain.Repositories {
+  static let folderName = "Repositories"
+  static func project(name: String) -> TargetDependency {
+    return .project(
+      target: "Repositories",
+      path: .relativeToRoot("Domain/\(folderName)")
+    )
+  }
+  
+  static let Interface = project(name: "Repository")
+}
+
+public extension TargetDependency.Domain.UseCases {
+  static let folderName = "UseCases"
+  static func project(name: String, isInterface: Bool) -> TargetDependency {
+    let postfix: String = isInterface ? "" : "Impl"
+    return .project(
+      target: "\(folderName)\(postfix)",
+      path: .relativeToRoot("Domain/\(folderName)")
+    )
+  }
+}
+
+public extension TargetDependency.Domain.UseCases {
+  static let Interface = TargetDependency.Domain.UseCases.project(name: "UseCases", isInterface: true)
+  static let Implement = TargetDependency.Domain.UseCases.project(name: "UseCases", isInterface: false)
+}
+
 
 // MARK: - Features/Home
 public extension TargetDependency.Feature.Home {
@@ -94,16 +135,6 @@ public extension TargetDependency.Feature.Feed.UserInterface {
   static let Implement = TargetDependency.Feature.Feed.project(name: "UserInterface", isInterface: false)
 }
 
-public extension TargetDependency.Feature.Feed.Domain {
-  static let Interface = TargetDependency.Feature.Feed.project(name: "Domain", isInterface: true)
-  static let Implement = TargetDependency.Feature.Feed.project(name: "Domain", isInterface: false)
-}
-
-public extension TargetDependency.Feature.Feed.Data {
-  static let Interface = TargetDependency.Feature.Feed.project(name: "Data", isInterface: true)
-  static let Implement = TargetDependency.Feature.Feed.project(name: "Data", isInterface: false)
-}
-
 // MARK: - Features/Shop
 public extension TargetDependency.Feature.Shop {
   static let folderName = "Shop"
@@ -117,16 +148,6 @@ public extension TargetDependency.Feature.Shop {
 public extension TargetDependency.Feature.Shop.UserInterface {
   static let Interface = TargetDependency.Feature.Shop.project(name: "UserInterface", isInterface: true)
   static let Implement = TargetDependency.Feature.Shop.project(name: "UserInterface", isInterface: false)
-}
-
-public extension TargetDependency.Feature.Shop.Domain {
-  static let Interface = TargetDependency.Feature.Shop.project(name: "Domain", isInterface: true)
-  static let Implement = TargetDependency.Feature.Shop.project(name: "Domain", isInterface: false)
-}
-
-public extension TargetDependency.Feature.Shop.Data {
-  static let Interface = TargetDependency.Feature.Shop.project(name: "Data", isInterface: true)
-  static let Implement = TargetDependency.Feature.Shop.project(name: "Data", isInterface: false)
 }
 
 
@@ -143,16 +164,6 @@ public extension TargetDependency.Feature.Profile {
 public extension TargetDependency.Feature.Profile.UserInterface {
   static let Interface = TargetDependency.Feature.Profile.project(name: "UserInterface", isInterface: true)
   static let Implement = TargetDependency.Feature.Profile.project(name: "UserInterface", isInterface: false)
-}
-
-public extension TargetDependency.Feature.Profile.Domain {
-  static let Interface = TargetDependency.Feature.Profile.project(name: "Domain", isInterface: true)
-  static let Implement = TargetDependency.Feature.Profile.project(name: "Domain", isInterface: false)
-}
-
-public extension TargetDependency.Feature.Profile.Data {
-  static let Interface = TargetDependency.Feature.Profile.project(name: "Data", isInterface: true)
-  static let Implement = TargetDependency.Feature.Profile.project(name: "Data", isInterface: false)
 }
 
 public extension TargetDependency.ThirdParty {

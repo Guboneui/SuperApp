@@ -10,6 +10,20 @@ import FeedUserInterfaceImpl
 import HomeUserInterfaceImpl
 import ProfileUserInterfaceImpl
 import ShopUserInterfaceImpl
+import FeedUserInterface
+import UseCasesImpl
+import Repositories
+import Entity
+
+// 임시
+
+final class FeedRepositoryImpl: FeedRepository {
+  func fetchFeedList() -> Result<Feed, Error> {
+    return .success(Feed(feedName: "Test Feed", count: 10))
+  }
+  
+  
+}
 
 final class AppRootTabbarController: UITabBarController {
   
@@ -37,7 +51,10 @@ private extension AppRootTabbarController {
   }
   
   func setupFeedVC() -> UIViewController {
-    let feedVC = FeedViewController()
+    let FeedRepository = FeedRepositoryImpl()
+    let useCase = FeedUseCaseImpl(repository: FeedRepository)
+    let viewModel = FeedViewModelImpl(useCase: useCase)
+    let feedVC = FeedViewController(viewModel: viewModel)
     feedVC.tabBarItem = UITabBarItem(
       title: "Feed",
       image: UIImage(systemName: "a.square.fill"),

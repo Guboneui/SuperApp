@@ -8,8 +8,21 @@
 
 import UIKit
 import ResourceKit
+import FeedUserInterface
 
 public final class FeedViewController: UIViewController {
+  
+  private let viewModel: FeedViewModel
+  
+  public init(viewModel: FeedViewModel) {
+    self.viewModel = viewModel
+    super.init(nibName: nil, bundle: nil)
+  }
+  
+  required init?(coder: NSCoder) {
+    fatalError("init(coder:) has not been implemented")
+  }
+  
   
   let imageView: UIImageView = {
     let imageView = UIImageView()
@@ -36,11 +49,20 @@ public final class FeedViewController: UIViewController {
     return label
   }()
   
+  let button: UIButton = {
+    let button = UIButton(type: .system)
+    button.translatesAutoresizingMaskIntoConstraints = false
+    button.setTitle("CLICK", for: .normal)
+    button.backgroundColor = .yellow
+    return button
+  }()
+  
   public override func viewDidLoad() {
     super.viewDidLoad()
     view.backgroundColor = .white
 
     setupViews()
+    setupGestures()
   }
   
   private func setupViews() {
@@ -48,6 +70,7 @@ public final class FeedViewController: UIViewController {
     view.addSubview(imageView)
     view.addSubview(originLabel)
     view.addSubview(fontLabel)
+    view.addSubview(button)
     
     NSLayoutConstraint.activate([
       imageView.centerYAnchor.constraint(equalTo: view.centerYAnchor),
@@ -61,7 +84,19 @@ public final class FeedViewController: UIViewController {
       
       fontLabel.topAnchor.constraint(equalTo: originLabel.bottomAnchor, constant: 8),
       fontLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-      fontLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor)
+      fontLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+      
+      button.topAnchor.constraint(equalTo: fontLabel.bottomAnchor, constant: 8),
+      button.centerXAnchor.constraint(equalTo: view.centerXAnchor)
     ])
+  }
+  
+  private func setupGestures() {
+    button.addTarget(self, action: #selector(didTapButton), for: .touchUpInside
+    )
+  }
+  
+  @objc private func didTapButton() {
+    viewModel.printFeedData()
   }
 }

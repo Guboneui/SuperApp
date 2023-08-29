@@ -76,9 +76,110 @@ extension Project {
       targets: targets
     )
   }
+  
+  public static func inversedLibrary(
+    name: String,
+    platform: Platform,
+    iOSTargetVersion: String,
+    interfaceDependencies: [TargetDependency] = [],
+    implementDependencies: [TargetDependency] = []
+  ) -> Project {
+    
+    let interfaceTarget = makeInterfaceStaticLibraryTarget(
+      name: name,
+      platform: platform,
+      iOSTargetVersion: iOSTargetVersion,
+      dependencies: interfaceDependencies
+    )
+    
+    let implementTarget = makeImplementStaticLibraryTarget(
+      name: name,
+      platform: platform,
+      iOSTargetVersion: iOSTargetVersion,
+      dependencies: implementDependencies + [.target(name: name)]
+    )
+    
+    return Project(
+      name: name,
+      organizationName: organizationName,
+      targets: [interfaceTarget, implementTarget]
+    )
+  }
 }
 
 extension Project {
+  
+  static func makeNestedFrameworkTargets(
+    name: String,
+    platform: Platform,
+    iOSTargetVersion: String,
+    dependencies: [TargetDependency] = []
+  ) -> [Target] {
+    let interfaceSources = Target(
+      name: name,
+      platform: platform,
+      product: .staticLibrary,
+      bundleId: "\(organizationName).\(name)",
+      deploymentTarget: .iOS(targetVersion: iOSTargetVersion, devices: [.iphone]),
+      infoPlist: .default,
+      sources: ["Sources/Interface/**"],
+      dependencies: dependencies
+    )
+    
+    let ImplementSources = Target(
+      name: name + "Impl",
+      platform: platform,
+      product: .staticLibrary,
+      bundleId: "\(organizationName).\(name)",
+      deploymentTarget: .iOS(targetVersion: iOSTargetVersion, devices: [.iphone]),
+      infoPlist: .default,
+      sources: ["Sources/Implement/**"],
+      dependencies: dependencies
+    )
+    
+    return [interfaceSources, ImplementSources]
+  }
+  
+  
+  static func makeImplementStaticLibraryTarget(
+    name: String,
+    platform: Platform,
+    iOSTargetVersion: String,
+    dependencies: [TargetDependency] = []
+  ) -> Target {
+    let target = Target(
+      name: name + "Impl",
+      platform: platform,
+      product: .staticLibrary,
+      bundleId: "\(iOSTargetVersion).\(name)",
+      deploymentTarget: .iOS(targetVersion: iOSTargetVersion, devices: [.iphone]),
+      infoPlist: .default,
+      sources: ["Sources/Implement/**"],
+      dependencies: dependencies
+    )
+    
+    return target
+  }
+  
+  static func makeInterfaceStaticLibraryTarget(
+    name: String,
+    platform: Platform,
+    iOSTargetVersion: String,
+    dependencies: [TargetDependency] = []
+  ) -> Target {
+    let target = Target(
+      name: name,
+      platform: platform,
+      product: .staticLibrary,
+      bundleId: "\(organizationName).\(name)",
+      deploymentTarget: .iOS(targetVersion: iOSTargetVersion, devices: [.iphone]),
+      infoPlist: .default,
+      sources: ["Sources/Interface/**"],
+      dependencies: dependencies
+    )
+    
+    return target
+  }
   
   static func makeFrameworkTargets(
     name: String,

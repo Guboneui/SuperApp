@@ -9,13 +9,13 @@ import ProjectDescription
 import ProjectDescriptionHelpers
 
 let project = Project(
-  name: "Profile",
+  name: "ProfileUserInterface",
   targets: [
     Target(
-      name: "Profile",
+      name: "ProfileUserInterface",
       platform: .iOS,
-      product: .app,
-      bundleId: "com.boni.Profile",
+      product: .framework,
+      bundleId: "com.boni.ProfileUserInterface",
       sources: ["Sources/**"],
       dependencies: []
     )

@@ -8,8 +8,8 @@
 import ProjectDescription
 import ProjectDescriptionHelpers
 
-let proejct = Project.inversedLibrary(
-  name: "Domain",
-  platform: .iOS,
-  iOSTargetVersion: "15.0"
+let project = Project.inversedLibrary(
+    name: "Core",
+    platform: .iOS,
+    iOSTargetVersion: "15.0"
 )

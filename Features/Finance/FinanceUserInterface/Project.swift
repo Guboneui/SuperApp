@@ -9,15 +9,16 @@ import ProjectDescription
 import ProjectDescriptionHelpers
 
 let project = Project(
-  name: "Transport",
+  name: "FinanceUserInterface",
   targets: [
     Target(
-      name: "Transport",
+      name: "FinanceUserInterface",
       platform: .iOS,
-      product: .app,
-      bundleId: "com.boni.Transport",
+      product: .framework,
+      bundleId: "com.boni.FinanceUserInterface",
       sources: ["Sources/**"],
-      dependencies: []
+      dependencies: [
+      ]
     )
   ]
 )

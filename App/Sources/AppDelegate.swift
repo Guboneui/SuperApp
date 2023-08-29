@@ -6,8 +6,6 @@
 //
 
 import UIKit
-import Data
-import DataImpl
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {

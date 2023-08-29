@@ -156,7 +156,7 @@ extension Project {
       bundleId: "\(iOSTargetVersion).\(name)",
       deploymentTarget: .iOS(targetVersion: iOSTargetVersion, devices: [.iphone]),
       infoPlist: .default,
-      sources: ["Sources/Implement/**"],
+      sources: ["./Implement/**"],
       dependencies: dependencies
     )
     
@@ -172,11 +172,11 @@ extension Project {
     let target = Target(
       name: name,
       platform: platform,
-      product: .staticLibrary,
+      product: .framework,
       bundleId: "\(organizationName).\(name)",
       deploymentTarget: .iOS(targetVersion: iOSTargetVersion, devices: [.iphone]),
       infoPlist: .default,
-      sources: ["Sources/Interface/**"],
+      sources: ["./Interface/**"],
       dependencies: dependencies
     )
     

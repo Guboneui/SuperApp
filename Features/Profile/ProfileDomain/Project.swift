@@ -9,7 +9,9 @@ import ProjectDescription
 import ProjectDescriptionHelpers
 
 let project = Project.inversedLibrary(
-  name: "Data",
-  platform: .iOS,
-  iOSTargetVersion: "15.0"
+    name: "ProfileDomain",
+    platform: .iOS,
+    iOSTargetVersion: "15.0",
+    interfaceDependencies: [],
+    implementDependencies: []
 )

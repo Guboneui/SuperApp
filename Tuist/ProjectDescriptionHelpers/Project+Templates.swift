@@ -61,12 +61,14 @@ extension Project {
     name: String,
     platform: Platform,
     iOSTargetVersion: String,
-    dependencies: [TargetDependency] = []
+    dependencies: [TargetDependency] = [],
+    infoPlist: [String: InfoPlist.Value] = [:]
   ) -> Project {
     let targets = makeFrameworkTargets(
       name: name,
       platform: platform,
       iOSTargetVersion: iOSTargetVersion,
+      infoPlist: infoPlist,
       dependencies: dependencies
     )
     
@@ -185,12 +187,16 @@ extension Project {
     name: String,
     platform: Platform,
     iOSTargetVersion: String,
+    infoPlist: [String: InfoPlist.Value] = [:],
     dependencies: [TargetDependency] = []
   ) -> [Target] {
     let sources = Target(
-      name: name, platform: platform, product: .framework, bundleId: "\(organizationName).\(name)",
+      name: name,
+      platform: platform,
+      product: .framework,
+      bundleId: "\(organizationName).\(name)",
       deploymentTarget: .iOS(targetVersion: iOSTargetVersion, devices: [.iphone]),
-      infoPlist: .default,
+      infoPlist: .extendingDefault(with: infoPlist),
       sources: ["Sources/**"],
       resources: ["Resources/**"],
       dependencies: dependencies

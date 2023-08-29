@@ -7,6 +7,6 @@
 
 import Foundation
 
-protocol AccountRepository {
-  
+public protocol AccountRepository {
+  func test()
 }

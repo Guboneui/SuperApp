@@ -6,8 +6,15 @@
 //
 
 import Foundation
+import Data
 
-
-final class AccountRepositoryImpl: AccountRepository {
+public final class AccountRepositoryImpl: AccountRepository {
   
+  public init() {
+    
+  }
+  
+  public func test() {
+    print("Test Success")
+  }
 }

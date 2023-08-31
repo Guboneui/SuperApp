@@ -14,7 +14,10 @@ let project = Project.invertedDualTargetProject(
   platform: .iOS,
   iOSTargetVersion: "15.0",
   interfaceDependencies: [
-    .Domain.Repositories.Interface
+    .Data.Repositories.Interface,
+    .Domain.Entity.Implement
   ],
-  implementDependencies: []
+  implementDependencies: [
+    .Data.Repositories.Implement
+  ]
 )

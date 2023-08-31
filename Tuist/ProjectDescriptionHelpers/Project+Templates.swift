@@ -79,6 +79,27 @@ extension Project {
     )
   }
   
+  public static func staticLibrary(
+    name: String,
+    platform: Platform,
+    iOSTargetVersion: String,
+    dependencies: [TargetDependency] = []
+  ) -> Project {
+    let implementTarget = makeImplementStaticLibraryTarget(
+      name: name,
+      platform: platform,
+      iOSTargetVersion: iOSTargetVersion,
+      dependencies: dependencies
+    )
+    
+    return Project(
+      name: name,
+      organizationName: organizationName,
+      targets: [implementTarget]
+    )
+  }
+  
+  
   
   public static func invertedDualTargetProject(
     name: String,

@@ -20,6 +20,12 @@ public final class FeedUseCaseImpl: FeedUseCase {
   }
   
   public func mappingFeedData() -> Result<Feed, Error>{
-    return repository.fetchFeedList()
+    let result = repository.fetchFeedList()
+    switch result {
+    case .success(let feedDTO):
+      return .success(Feed(feedName: feedDTO.feedName, count: feedDTO.count))
+    case .failure(let error):
+      return .failure(error)
+    }
   }
 }

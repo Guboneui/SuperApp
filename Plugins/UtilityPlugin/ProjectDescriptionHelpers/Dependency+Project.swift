@@ -29,6 +29,9 @@ extension TargetDependency {
   public struct Domain {
     public struct Entity {}
     public struct UseCases {}
+  }
+  
+  public struct Data {
     public struct Repositories {}
   }
 }
@@ -74,18 +77,6 @@ public extension TargetDependency.Domain.Entity {
   static let Implement = project(name: "Entity")
 }
 
-public extension TargetDependency.Domain.Repositories {
-  static let folderName = "Repositories"
-  static func project(name: String) -> TargetDependency {
-    return .project(
-      target: "Repositories",
-      path: .relativeToRoot("Domain/\(folderName)")
-    )
-  }
-  
-  static let Interface = project(name: "Repository")
-}
-
 public extension TargetDependency.Domain.UseCases {
   static let folderName = "UseCases"
   static func project(name: String, isInterface: Bool) -> TargetDependency {
@@ -102,6 +93,22 @@ public extension TargetDependency.Domain.UseCases {
   static let Implement = TargetDependency.Domain.UseCases.project(name: "UseCases", isInterface: false)
 }
 
+// MARK: - Data
+public extension TargetDependency.Data.Repositories {
+  static let folderName = "Repositories"
+  static func project(name: String, isInterface: Bool) -> TargetDependency {
+    let postfix: String = isInterface ? "" : "Impl"
+    return .project(
+      target: "\(folderName)\(postfix)",
+      path: .relativeToRoot("Data/\(folderName)")
+    )
+  }
+}
+
+public extension TargetDependency.Data.Repositories {
+  static let Interface = TargetDependency.Data.Repositories.project(name: "Repositories", isInterface: true)
+  static let Implement = TargetDependency.Data.Repositories.project(name: "Repositories", isInterface: false)
+}
 
 // MARK: - Features/Home
 public extension TargetDependency.Feature.Home {

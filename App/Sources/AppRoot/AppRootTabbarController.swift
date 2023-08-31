@@ -14,16 +14,7 @@ import FeedUserInterface
 import UseCasesImpl
 import Repositories
 import Entity
-
-// 임시
-
-final class FeedRepositoryImpl: FeedRepository {
-  func fetchFeedList() -> Result<Feed, Error> {
-    return .success(Feed(feedName: "Test Feed", count: 10))
-  }
-  
-  
-}
+import RepositoriesImpl
 
 final class AppRootTabbarController: UITabBarController {
   

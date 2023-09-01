@@ -9,6 +9,7 @@
 import UIKit
 import ResourceKit
 import FeedUserInterface
+import DesignSystem
 
 public final class FeedViewController: UIViewController {
   
@@ -31,9 +32,8 @@ public final class FeedViewController: UIViewController {
     return imageView
   }()
   
-  let originLabel: UILabel = {
-    let label = UILabel()
-    label.translatesAutoresizingMaskIntoConstraints = false
+  let originLabel: BaseLabel = {
+    let label = BaseLabel()
     label.text = "ABCDEFGHIJK"
     label.font = .systemFont(ofSize: 20, weight: .regular)
     label.textAlignment = .center

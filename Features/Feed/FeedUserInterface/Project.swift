@@ -18,6 +18,7 @@ let project = Project.invertedDualTargetProject(
   ],
   implementDependencies: [
     .ResourceKit.Implement,
+    .DesignSystem.Implement,
     .Domain.UseCases.Implement
   ]
 )

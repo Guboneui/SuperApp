@@ -34,6 +34,8 @@ extension TargetDependency {
   public struct Data {
     public struct Repositories {}
   }
+  
+  public struct DesignSystem {}
 }
 
 public extension TargetDependency.Core {
@@ -182,4 +184,16 @@ public extension TargetDependency.ThirdParty {
   static let RxCocoa = TargetDependency.external(name: "RxCocoa")
   static let RxGesture = TargetDependency.external(name: "RxGesture")
   static let SnapKit = TargetDependency.external(name: "SnapKit")
+}
+
+public extension TargetDependency.DesignSystem {
+  static let folderName = "DesignSystem"
+  static func project(name: String) -> TargetDependency {
+    return .project(
+      target: "\(name)",
+      path: .relativeToRoot("\(folderName)")
+    )
+  }
+  
+  static let Implement = project(name: "DesignSystem")
 }

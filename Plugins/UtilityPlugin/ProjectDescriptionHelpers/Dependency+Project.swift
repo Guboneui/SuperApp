@@ -113,6 +113,17 @@ public extension TargetDependency.Data.Repositories {
 }
 
 // MARK: - Features/Home
+public extension TargetDependency.Feature {
+  static let folderName = "Features"
+  static func project(name: String) -> TargetDependency {
+    return .project(
+      target: "\(folderName)",
+      path: .relativeToRoot("Features/")
+    )
+  }
+  static let Main = TargetDependency.Feature.project(name: "Features")
+}
+
 public extension TargetDependency.Feature.Home {
   static let folderName = "Home"
   static func project(name: String, isInterface: Bool) -> TargetDependency {

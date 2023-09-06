@@ -18,17 +18,18 @@ let setting: Settings = .settings(
 )
 
 let moduleDependency: [TargetDependency] = [
-  .Feature.Home.UserInterface.Interface,
-  .Feature.Home.UserInterface.Implement,
-  
-  .Feature.Feed.UserInterface.Interface,
-  .Feature.Feed.UserInterface.Implement,
-  
-  .Feature.Shop.UserInterface.Interface,
-  .Feature.Shop.UserInterface.Implement,
-  
-  .Feature.Profile.UserInterface.Interface,
-  .Feature.Profile.UserInterface.Implement
+  .Feature.Main
+//  .Feature.Home.UserInterface.Interface,
+//  .Feature.Home.UserInterface.Implement,
+//
+//  .Feature.Feed.UserInterface.Interface,
+//  .Feature.Feed.UserInterface.Implement,
+//
+//  .Feature.Shop.UserInterface.Interface,
+//  .Feature.Shop.UserInterface.Implement,
+//
+//  .Feature.Profile.UserInterface.Interface,
+//  .Feature.Profile.UserInterface.Implement
 ]
 
 let target =  Target(

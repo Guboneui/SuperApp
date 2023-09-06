@@ -85,7 +85,7 @@ extension Project {
     iOSTargetVersion: String,
     dependencies: [TargetDependency] = []
   ) -> Project {
-    let implementTarget = makeImplementStaticLibraryTarget(
+    let implementTarget = makeStaticLibraryTarget(
       name: name,
       platform: platform,
       iOSTargetVersion: iOSTargetVersion,
@@ -132,6 +132,24 @@ extension Project {
 }
 
 extension Project {
+  static func makeStaticLibraryTarget (
+    name: String,
+    platform: Platform,
+    iOSTargetVersion: String,
+    dependencies: [TargetDependency]
+  ) -> Target {
+    let target = Target(
+      name: name,
+      platform: platform,
+      product: .staticLibrary,
+      bundleId: "\(organizationName).\(name)",
+      deploymentTarget: .iOS(targetVersion: iOSTargetVersion, devices: [.iphone]),
+      infoPlist: .default,
+      dependencies: dependencies
+    )
+    
+    return target
+  }
   
   static func makeImplementStaticLibraryTarget(
     name: String,
